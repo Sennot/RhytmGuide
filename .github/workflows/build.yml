@@ -23,8 +23,6 @@ jobs:
 
       - name: Setup Geode SDK
         uses: geode-sdk/setup-geode@v1
-        with:
-          version: v5.7.1
 
       - name: Print Geode environment
         shell: pwsh
