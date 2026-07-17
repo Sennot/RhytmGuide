@@ -11,9 +11,6 @@ jobs:
     name: Build Windows .geode
     runs-on: windows-latest
 
-    env:
-      GEODE_SDK: ${{ github.workspace }}\geode-sdk
-
     steps:
       - name: Checkout mod
         uses: actions/checkout@v4
@@ -21,13 +18,24 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install Ninja
+      - name: Setup Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Checkout Geode SDK 5.7.1
+      - name: Setup Geode SDK
+        uses: geode-sdk/setup-geode@v1
+        with:
+          version: v5.7.1
+
+      - name: Print Geode environment
         shell: pwsh
         run: |
-          git clone --recursive --branch v5.7.1 https://github.com/geode-sdk/geode "$env:GEODE_SDK"
+          Write-Host "GEODE_SDK=$env:GEODE_SDK"
+          geode --version
+
+      - name: Install Geode loader binaries
+        shell: pwsh
+        run: |
+          geode sdk install-binaries
 
       - name: Configure CMake
         shell: pwsh
@@ -44,17 +52,10 @@ jobs:
         shell: pwsh
         run: |
           $files = Get-ChildItem -Path build -Recurse -Filter *.geode
+
           if ($files.Count -eq 0) {
             Write-Error "No .geode file found"
             exit 1
           }
 
-          $file = $files[0].FullName
-          echo "path=$file" >> $env:GITHUB_OUTPUT
-          Write-Host "Found: $file"
-
-      - name: Upload .geode artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: RhythmGuide-Windows
-          path: ${{ steps.find_geode.outputs.path }}
+          $file = $files[0].Full
