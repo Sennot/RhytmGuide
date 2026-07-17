@@ -1,0 +1,60 @@
+name: Build Geode Mod
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Build Windows .geode
+    runs-on: windows-latest
+
+    env:
+      GEODE_SDK: ${{ github.workspace }}\geode-sdk
+
+    steps:
+      - name: Checkout mod
+        uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Checkout Geode SDK 5.7.1
+        shell: pwsh
+        run: |
+          git clone --recursive --branch v5.7.1 https://github.com/geode-sdk/geode "$env:GEODE_SDK"
+
+      - name: Configure CMake
+        shell: pwsh
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cmake --build build --config RelWithDebInfo --parallel
+
+      - name: Find .geode
+        id: find_geode
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Path build -Recurse -Filter *.geode
+          if ($files.Count -eq 0) {
+            Write-Error "No .geode file found"
+            exit 1
+          }
+
+          $file = $files[0].FullName
+          echo "path=$file" >> $env:GITHUB_OUTPUT
+          Write-Host "Found: $file"
+
+      - name: Upload .geode artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RhythmGuide-Windows
+          path: ${{ steps.find_geode.outputs.path }}

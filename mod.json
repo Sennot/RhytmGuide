@@ -1,0 +1,272 @@
+{
+  "geode": "5.7.1",
+  "gd": {
+    "win": "2.2081"
+  },
+  "id": "nakomellia.rhythm_guide",
+  "name": "Rhythm Guide",
+  "version": "1.0.0",
+  "developer": "NakoMellia",
+  "description": "Minimal rhythm-game style input guide for Geometry Dash macros.",
+  "repository": "https://github.com/NakoMellia/RhythmGuide",
+  "tags": ["gameplay", "overlay", "practice", "macro", "rhythm"],
+
+  "settings": {
+    "enabled": {
+      "type": "bool",
+      "name": "Enable Rhythm Guide",
+      "description": "Master switch for all overlay visuals.",
+      "default": true
+    },
+
+    "macro-path": {
+      "type": "string",
+      "name": "Macro Path",
+      "description": "Path to .gdr or .gdr.json macro file.",
+      "default": ""
+    },
+
+    "reload-macro-on-reset": {
+      "type": "bool",
+      "name": "Reload Macro On Reset",
+      "description": "Reload macro file every attempt/reset.",
+      "default": true
+    },
+
+    "macro-fps": {
+      "type": "float",
+      "name": "Macro FPS",
+      "description": "Frame rate used to convert macro frames to seconds.",
+      "default": 240.0,
+      "min": 30.0,
+      "max": 1000.0
+    },
+
+    "input-window-ms": {
+      "type": "int",
+      "name": "Judgement Window, ms",
+      "description": "Maximum deviation to match your input to a macro input.",
+      "default": 120,
+      "min": 5,
+      "max": 500
+    },
+
+    "in-window-ms": {
+      "type": "int",
+      "name": "In Window, ms",
+      "description": "If deviation is within this value, the mod shows 'In'.",
+      "default": 18,
+      "min": 1,
+      "max": 100
+    },
+
+    "show-ms-feedback": {
+      "type": "bool",
+      "name": "Show MS Feedback",
+      "description": "Show timing deviation near the player.",
+      "default": true
+    },
+
+    "show-in-text": {
+      "type": "bool",
+      "name": "Show 'In'",
+      "description": "Show 'In' instead of +0ms when input is accurate.",
+      "default": true
+    },
+
+    "strict-player-match": {
+      "type": "bool",
+      "name": "Strict Player Match",
+      "description": "Only match P1 inputs with P1 macro inputs and P2 with P2.",
+      "default": false
+    },
+
+    "strict-button-match": {
+      "type": "bool",
+      "name": "Strict Button Match",
+      "description": "Only match the exact button id from the macro.",
+      "default": false
+    },
+
+    "gd-bool-true-is-p1": {
+      "type": "bool",
+      "name": "GD bool true = P1",
+      "description": "Compatibility toggle for PlayLayer input bool mapping.",
+      "default": true
+    },
+
+    "cbf-subframe-clock": {
+      "type": "bool",
+      "name": "CBF Sub-frame Clock",
+      "description": "Use wall-clock offset after last physics update for more precise CBF-style input timing.",
+      "default": true
+    },
+
+    "lookahead-ms": {
+      "type": "int",
+      "name": "Line Lookahead, ms",
+      "description": "How early guide lines appear before the ideal input.",
+      "default": 1400,
+      "min": 100,
+      "max": 5000
+    },
+
+    "past-visible-ms": {
+      "type": "int",
+      "name": "Past Visibility, ms",
+      "description": "How long lines remain after passing the hit position.",
+      "default": 120,
+      "min": 0,
+      "max": 1000
+    },
+
+    "line-width": {
+      "type": "float",
+      "name": "Line Width",
+      "default": 1.8,
+      "min": 0.5,
+      "max": 12.0
+    },
+
+    "line-height-percent": {
+      "type": "float",
+      "name": "Line Height %",
+      "description": "Vertical line height relative to screen height.",
+      "default": 0.82,
+      "min": 0.1,
+      "max": 1.2
+    },
+
+    "line-alpha": {
+      "type": "float",
+      "name": "Line Alpha",
+      "default": 0.38,
+      "min": 0.0,
+      "max": 1.0
+    },
+
+    "glow-enabled": {
+      "type": "bool",
+      "name": "Soft Glow",
+      "default": true
+    },
+
+    "glow-alpha": {
+      "type": "float",
+      "name": "Glow Alpha",
+      "default": 0.12,
+      "min": 0.0,
+      "max": 1.0
+    },
+
+    "line-color": {
+      "type": "string",
+      "name": "Line Color HEX",
+      "description": "Example: #FFFFFF, #88CCFF, #FFDD88",
+      "default": "#FFFFFF"
+    },
+
+    "accent-color": {
+      "type": "string",
+      "name": "Accent Color HEX",
+      "description": "Small dot / label accent color.",
+      "default": "#FFFFFF"
+    },
+
+    "show-event-labels": {
+      "type": "bool",
+      "name": "Show Event Labels",
+      "description": "Show P1/P2 and press/release label above guide lines.",
+      "default": false
+    },
+
+    "marker-dot-size": {
+      "type": "float",
+      "name": "Marker Dot Size",
+      "default": 4.0,
+      "min": 1.0,
+      "max": 20.0
+    },
+
+    "feedback-font-scale": {
+      "type": "float",
+      "name": "Feedback Font Scale",
+      "default": 0.42,
+      "min": 0.1,
+      "max": 1.5
+    },
+
+    "feedback-y-offset": {
+      "type": "float",
+      "name": "Feedback Y Offset",
+      "default": 42.0,
+      "min": -200.0,
+      "max": 200.0
+    },
+
+    "feedback-duration-ms": {
+      "type": "int",
+      "name": "Feedback Duration, ms",
+      "default": 650,
+      "min": 50,
+      "max": 3000
+    },
+
+    "attach-icon-until-release": {
+      "type": "bool",
+      "name": "Attach Icon Until Release",
+      "description": "White feedback icon stays attached to player until release input.",
+      "default": true
+    },
+
+    "disable-in-ship": {
+      "type": "bool",
+      "name": "Disable Lines In Ship",
+      "description": "Hide rhythm guide lines while player is ship.",
+      "default": true
+    },
+
+    "disable-in-wave": {
+      "type": "bool",
+      "name": "Disable Lines In Wave",
+      "description": "Hide rhythm guide lines while player is wave.",
+      "default": true
+    },
+
+    "hide-feedback-in-ship-wave": {
+      "type": "bool",
+      "name": "Hide Feedback In Ship/Wave",
+      "default": false
+    },
+
+    "clear-lines-on-ship-wave": {
+      "type": "bool",
+      "name": "Clear Lines Immediately On Ship/Wave",
+      "description": "As soon as ship/wave mode starts, all current guide lines disappear.",
+      "default": true
+    },
+
+    "fallback-scroll-pps": {
+      "type": "float",
+      "name": "Fallback Scroll PPS",
+      "description": "Fallback pixels-per-second for line movement if speed estimation is unavailable.",
+      "default": 360.0,
+      "min": 50.0,
+      "max": 2000.0
+    },
+
+    "max-visible-lines": {
+      "type": "int",
+      "name": "Max Visible Lines",
+      "default": 64,
+      "min": 1,
+      "max": 512
+    },
+
+    "debug-log-parser": {
+      "type": "bool",
+      "name": "Debug Parser Logs",
+      "default": false
+    }
+  }
+}
